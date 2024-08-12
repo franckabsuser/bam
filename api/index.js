@@ -665,6 +665,12 @@ app.use((err, req, res, next) => {
     res.status(500).send({ error: 'Erreur du serveur' });
 });
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 // Démarrer le serveur
 server.listen(config.PORT, () => {
     console.log(`Serveur démarré sur le port ${config.PORT}`);
